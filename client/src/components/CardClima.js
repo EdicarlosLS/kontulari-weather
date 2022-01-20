@@ -4,18 +4,15 @@ import styled from "styled-components";
 class CardClima extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      clima: props.clima
-    };
   }
 
   render() {
     return    <div className="card_container">
     <div id="short">
-      <h1>{this.state.clima.cidade} - {this.state.clima.estado}</h1>
+      <h1>{this.props.clima.localidade} - {this.props.clima.estado}</h1>
       <h3>Segunda - 17 jan</h3>
       <div id="icon">
-        {this.state.clima.temp_atual}
+        {this.props.clima.temp_atual}
     </div>
     </div>
 
@@ -23,19 +20,19 @@ class CardClima extends React.Component {
 
       <p className="item-info">
         <label>  Umidade </label> <br />
-        {this.state.clima.umidade}%
+        {this.props.clima.umidade}%
       </p>
       <p className="item-info">
         <label>  Chuva </label> <br />
-         {this.state.clima.chuva}%
+         {this.props.clima.chuva}%
       </p>
       <p className="item-info">
         <label>   Vento </label> <br />
-        {this.state.clima.vento}km - {this.state.clima.dir_vento}
+        {this.props.clima.vento}km - {this.props.clima.dir_vento}
       </p>
       <p className="item-info">
         <label>   Temperatura</label> <br />
-        Max {this.state.clima.temp_max} - Min {this.state.clima.temp_min}
+        Max {this.props.clima.temp_max} - Min {this.props.clima.temp_min}
       </p>
     </div>
     </div>
