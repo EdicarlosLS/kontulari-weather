@@ -1,210 +1,55 @@
+import React from 'react';
 import logo from './logo.svg';
-import CardClima from './components/CardClima'
-import Pesquisa from './components/Pesquisa'
+import api from './services/api';
+import CardClima from './components/CardClima';
+import Pesquisa from './components/Pesquisa';
+import localidades from './components/localidades';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clima: undefined
+    }
+  }
 
-  const clima = {
-    cidade: 'Jauh',
-    estado: 'Chuvoso',
-    vento: 23,
-    dir_vento: 'NE',
-    chuva: 45,
-    umidade: 12,
-    temp_max: 34,
-    temp_min: 23,
-    temp_atual: 28
+  criarClima(data) {
+    return {
+      localidade: 'Jauh',
+      estado: data.weather_state_name,
+      vento: data.wind_speed,
+      dir_vento: data.wind_direction_compass,
+      chuva: data.predictability,
+      umidade: data.humidity,
+      temp_max: data.max_temp,
+      temp_min: data.min_temp,
+      temp_atual: data.the_temp
+    };
+  }
 
-  };
+  aoSelecionar(item) {
+    api.get('/?location='+item)
+    .then((response) => {
+      this.setState({
+        clima: this.criarClima(response.data.consolidated_weather[0])});
+    })
+    .catch((err) => {
+      console.error("ops! ocorreu um erro" + err);
+    });
+  }
 
-  const lista = [
-    "San Francisco",
-    "Hamburg",
-    "New Delhi",
-    "Bristol",
-    "Manchester",
-    "Edinburgh",
-    "Philadelphia",
-    "Madrid",
-    "Leeds",
-    "Berlin",
-    "Buenos Aires",
-    "Barcelona",
-    "Hong Kong",
-    "Honolulu",
-    "Long Beach",
-    "Amsterdam",
-    "Dongguan",
-    "Munich",
-    "Albuquerque",
-    "Santiago",
-    "Milwaukee",
-    "Riyadh",
-    "Oxford",
-    "Brussels",
-    "Cambridge",
-    "Dallas",
-    "Dhaka",
-    "Sheffield",
-    "Phoenix",
-    "Glasgow",
-    "Damascus",
-    "Auckland",
-    "Charlotte",
-    "Bogotá",
-    "Toronto",
-    "Cologne",
-    "Shenzhen",
-    "Tianjin",
-    "San Antonio",
-    "Kolkata",
-    "Cairo",
-    "Athens",
-    "Denver",
-    "London",
-    "Guangzhou",
-    "Paris",
-    "Austin",
-    "Mexico City",
-    "Omaha",
-    "Perth",
-    "Seoul",
-    "Wichita",
-    "Birmingham",
-    "Ankara",
-    "Tucson",
-    "Colorado Springs",
-    "Boston",
-    "Kinshasa",
-    "Rio de Janeiro",
-    "New York",
-    "Las Vegas",
-    "São Paulo",
-    "New Orleans",
-    "Istanbul",
-    "Karachi",
-    "Kansas City",
-    "Bangkok",
-    "Tokyo",
-    "Miami",
-    "Louisville",
-    "San Jose",
-    "Birmingham",
-    "Atlanta",
-    "Dublin",
-    "Lima",
-    "Osaka",
-    "Rome",
-    "Boise",
-    "Santa Cruz",
-    "Houston",
-    "Sydney",
-    "Washington DC",
-    "Milan",
-    "Richmond",
-    "Dubai",
-    "Chicago",
-    "Ho Chi Minh City",
-    "Jacksonville",
-    "Virginia Beach",
-    "Little Rock",
-    "Mumbai",
-    "Wilmington",
-    "Pyongyang",
-    "Tehrān",
-    "Baltimore",
-    "Beijing",
-    "Budapest",
-    "Indianapolis",
-    "Santorini",
-    "Seattle",
-    "Lagos",
-    "Bucharest",
-    "San Diego",
-    "Sacramento",
-    "Liverpool",
-    "Los Angeles",
-    "Mesa",
-    "Torino",
-    "Shanghai",
-    "Fresno",
-    "Brisbane",
-    "Columbus",
-    "Montréal",
-    "Addis Ababa",
-    "Melbourne",
-    "Prague",
-    "Exeter",
-    "Detroit",
-    "Bradford",
-    "Yokohama",
-    "Singapore",
-    "Casablanca",
-    "Oklahoma City",
-    "Toulouse",
-    "Bangalore",
-    "Moscow",
-    "Vancouver",
-    "Baghdad",
-    "Nairobi",
-    "Vienna",
-    "Fort Worth",
-    "Bridgeport",
-    "Anchorage",
-    "Nashville",
-    "Warsaw",
-    "Memphis",
-    "Jakarta",
-    "Hyderabad",
-    "Belfast",
-    "Copenhagen",
-    "Zagreb",
-    "Portland",
-    "Stockholm",
-    "Wakefield",
-    "Calgary",
-    "Nice",
-    "Adelaide",
-    "Naples",
-    "Cardiff",
-    "Fargo",
-    "Wuhan",
-    "Kiev",
-    "Cheyenne",
-    "Oslo",
-    "Lille",
-    "Marseille",
-    "Manila",
-    "Bordeaux",
-    "Ahmedabad",
-    "Sendai",
-    "Lahore",
-    "Edmonton",
-    "Lyon",
-    "Maracaibo",
-    "Johannesburg",
-    "Caracas",
-    "Bremen",
-    "Stoke-on-Trent",
-    "St Petersburg",
-    "İzmir",
-    "Charleston",
-    "Santander",
-    "Raleigh",
-    "Sofia",
-    "El Paso",
-    "Brasília",
-    "Salvador"];
-
-  const aoSelecionar = (item)=> {
-    console.log(item, '6');
-  };
-  return (
-    <div>
-      <CardClima clima={clima} />
-      <Pesquisa lista={lista} aoSelecionar={aoSelecionar} />
+  render() {
+    let clima = <h1>nada</h1>;
+    if (this.state.clima) {
+      clima = <CardClima clima={this.state.clima} />
+    }
+    return (<div>
+      {clima}
+    <Pesquisa
+      lista={localidades}
+      aoSelecionar={(item) => { this.aoSelecionar(item); } } />
     </div>
-  );
+    );
+  }
 }
-
 export default App;

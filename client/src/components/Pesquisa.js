@@ -11,6 +11,13 @@ class Pesquisa extends React.Component {
     };
   }
 
+  selecionar(item) {
+    this.setState({
+      busca: item
+    });
+    this.state.aoSelecionar(item);
+  }
+
   muda(e) {
     this.setState({
       busca: e.target.value
@@ -18,7 +25,7 @@ class Pesquisa extends React.Component {
   }
 
   filtro(item) {
-    if (this.state.busca == '') {
+    if (this.state.busca === '') {
       return false;
     } else {
       return item.toLowerCase().includes(this.state.busca.toLowerCase());
@@ -26,7 +33,7 @@ class Pesquisa extends React.Component {
   }
 
   renderItem(item) {
-    return <li onClick={() => { this.state.aoSelecionar(item); }}>{item}</li>;
+    return <li onClick={() => { this.selecionar(item); }}>{item}</li>;
   }
 
   render() {
@@ -34,6 +41,7 @@ class Pesquisa extends React.Component {
       <div>
       <input type="text"
         onChange={(e) => { this.muda(e); }}
+        value={this.state.busca}
         />
         <ul>
           {this.state.lista
