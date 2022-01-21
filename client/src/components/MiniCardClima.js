@@ -1,4 +1,5 @@
 import React from "react";
+import Util from "../util/Util"
 
 class MiniCardClima extends React.Component {
 
@@ -12,9 +13,9 @@ class MiniCardClima extends React.Component {
 
   render() {
     return (<div onClick={()=> { this.click(); }}>
-        {this.props.clima.data} <br />
-        {this.props.clima.temp_max} <br />
-        {this.props.clima.temp_min}
+        {Util.formatarData(new Date(this.props.clima.data))} <br />
+        {Math.round(this.props.clima.temp_max)} °C<br />
+        {Math.round(this.props.clima.temp_min)} °C
     </div>
     );
   }
