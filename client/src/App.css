@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'PT Serif', serif;
+}
+
+.container {
+  width: 90%;
+  padding: 16px;
+  margin: 8px auto;
+}
+
+.climaSemana {
+  width: 100%;
+  padding: 8px;
+}

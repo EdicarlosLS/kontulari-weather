@@ -1,0 +1,10 @@
+.mini_card {
+  width: 16.6%;
+  display: inline-block;
+  font-size: 0.75em;
+  text-align: center;
+}
+
+.mini_card img {
+  width: 100%;
+}

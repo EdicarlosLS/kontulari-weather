@@ -1,0 +1,35 @@
+.card_container {
+  width: 100%;
+}
+
+.short {
+  width: 68%;
+  display: inline-block;
+  position: relative;
+}
+
+.temp {
+  position: absolute;
+  top: 60%;
+  left: 10%;
+  font-size: 3.5em;
+  font-weight: bold;
+  color: #ffe237;
+  text-shadow: 1px 1px 1px #555555;
+}
+
+.info {
+  width: 30%;
+  display: inline-block;
+}
+
+.item_info {
+  display: inline-block;
+  margin: 8px 0px;
+  width: 100%;
+}
+
+.item_info label {
+  font-size: 0.75em;
+  display: block;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import './Pesquisa.css';
 
 class Pesquisa extends React.Component {
 
@@ -13,7 +14,7 @@ class Pesquisa extends React.Component {
 
   selecionar(item) {
     this.setState({
-      busca: item
+      busca: ''
     });
     this.state.aoSelecionar(item);
   }
@@ -33,17 +34,18 @@ class Pesquisa extends React.Component {
   }
 
   renderItem(item) {
-    return <li onClick={() => { this.selecionar(item); }}>{item}</li>;
+    return <li className="item_resultado" onClick={() => { this.selecionar(item); }}>{item}</li>;
   }
 
   render() {
     return (
-      <div>
-      <input type="text"
+      <div className="box_pesquisa">
+      <input type="text" className="input_pesquisa"
+        placeholder="Informe uma localidade.."
         onChange={(e) => { this.muda(e); }}
         value={this.state.busca}
         />
-        <ul>
+      <ul className="resultado_pesquisa">
           {this.state.lista
           .filter((item)=> {
             return this.filtro(item);

@@ -5,6 +5,7 @@ import CardClima from './components/CardClima';
 import MiniCardClima from './components/MiniCardClima';
 import Pesquisa from './components/Pesquisa';
 import localidades from './components/localidades';
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -58,23 +59,25 @@ class App extends React.Component {
   }
 
   renderMiniCardsClima(clima, idx) {
-    return (<MiniCardClima clima={clima} id={idx} onClick={(idx)=> { this.setState({clima: this.state.climaDaSemana[idx]})}} />
+    return (<MiniCardClima clima={clima} id={idx} onClick={(idx)=> { this.setState({ clima: this.state.climaDaSemana[idx]})}} />
     );
   }
 
   render() {
-    let clima = <h1>nada</h1>;
+    let clima = '';
     if (this.state.clima) {
       clima = <CardClima clima={this.state.clima} />
     }
-    return (<div>
-      {clima}
+    return (<div className="container">
     <Pesquisa
       lista={localidades}
       aoSelecionar={(item) => { this.aoSelecionar(item); } } />
+    {clima}
+    <div className="climaSemana" >
       {this.state.climaDaSemana.map((item, idx)=> {
         return this.renderMiniCardsClima(item, idx);
       })}
+      </div>
     </div>
 
     );

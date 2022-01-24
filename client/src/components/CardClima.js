@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import Util from '../util/Util';
+import './CardClima.css'
+import icon from '../img/icon.png';
 
 class CardClima extends React.Component {
   constructor(props) {
@@ -9,31 +10,32 @@ class CardClima extends React.Component {
 
   render() {
     return    <div className="card_container">
-    <div id="short">
-      <h1>{this.props.clima.localidade} - {this.props.clima.estado}</h1>
+     <h1>{this.props.clima.localidade} - {this.props.clima.estado}</h1>
       <h3>{Util.formatarData(new Date(this.props.clima.data))}</h3>
-      <div id="icon">
-        {Math.round(this.props.clima.temp_atual)} °C
+    <div className="short">
+ <img src={icon} />
+      <div className="temp">
+        {Math.round(this.props.clima.temp_atual)}°C
     </div>
     </div>
 
-    <div id="info">
+    <div className="info">
 
-      <p className="item-info">
-        <label>  Umidade </label> <br />
+      <p className="item_info">
+        <label>  Umidade </label>
         {Math.round(this.props.clima.umidade)}%
       </p>
-      <p className="item-info">
-        <label>  Chuva </label> <br />
+      <p className="item_info">
+        <label>  Chuva </label>
          {Math.round(this.props.clima.chuva)}%
       </p>
-      <p className="item-info">
-        <label>   Vento </label> <br />
+      <p className="item_info">
+        <label>   Vento </label>
         {Math.round(this.props.clima.vento * 1.609)} km/h - {this.props.clima.dir_vento}
       </p>
-      <p className="item-info">
-        <label>   Temperatura</label> <br />
-        Max {Math.round(this.props.clima.temp_max)} °C - Min {Math.round(this.props.clima.temp_min)} °C
+      <p className="item_info">
+        <label>Temperatura</label>
+        Max {Math.round(this.props.clima.temp_max)} °C Min {Math.round(this.props.clima.temp_min)}°C
       </p>
     </div>
     </div>
