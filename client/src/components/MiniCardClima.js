@@ -1,7 +1,7 @@
 import React from "react";
 import Util from "../util/Util"
 import './MiniCardClima.css';
-import icon from '../img/icon.png';
+import IconClima from './IconClima';
 
 class MiniCardClima extends React.Component {
 
@@ -16,8 +16,8 @@ class MiniCardClima extends React.Component {
   render() {
     return (<div className="mini_card" onClick={()=> { this.click(); }}>
         {Util.formatarData(new Date(this.props.clima.data))}
-        <img src={icon} />
-        {Math.round(this.props.clima.temp_max)}°C<br/>
+      <IconClima estado={this.props.clima.estado} />
+        {Math.round(this.props.clima.temp_max)}°C<br />
         {Math.round(this.props.clima.temp_min)}°C
     </div>
     );

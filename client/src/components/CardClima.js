@@ -1,7 +1,7 @@
 import React from "react";
 import Util from '../util/Util';
 import './CardClima.css'
-import icon from '../img/icon.png';
+import IconClima from './IconClima';
 
 class CardClima extends React.Component {
   constructor(props) {
@@ -9,11 +9,11 @@ class CardClima extends React.Component {
   }
 
   render() {
-    return    <div className="card_container">
-     <h1>{this.props.clima.localidade} - {this.props.clima.estado}</h1>
+    return <div className="card_container">
+     <h1>{this.props.clima.localidade}</h1>
       <h3>{Util.formatarData(new Date(this.props.clima.data))}</h3>
     <div className="short">
- <img src={icon} />
+ <IconClima estado={this.props.clima.estado} />
       <div className="temp">
         {Math.round(this.props.clima.temp_atual)}°C
     </div>
