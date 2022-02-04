@@ -5,14 +5,21 @@ import CardClima from './components/CardClima';
 import MiniCardClima from './components/MiniCardClima';
 import Pesquisa from './components/Pesquisa';
 import localidades from './components/localidades';
+import Load from './components/Load'
 import './App.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.estado = {
+      INICIAL: "inicial",
+      CARREGANDO: "carregando",
+      PRONTO: "pronto"
+    };
     this.state = {
       clima: undefined,
-      climaDaSemana: []
+      climaDaSemana: [],
+      estado: this.estado.INICIAL
     }
   }
 
@@ -47,11 +54,17 @@ class App extends React.Component {
   }
 
   aoSelecionar(item) {
+    this.setState({
+      estado: this.estado.CARREGANDO
+    });
     api.get('/?location='+item)
     .then((response) => {
       this.setState({
         climaDaSemana: this.criarClimaDaSemana(response.data)
-      })
+      });
+      this.setState({
+        estado: this.estado.PRONTO
+      });
     })
     .catch((err) => {
       console.error("ops! ocorreu um erro" + err);
@@ -65,19 +78,23 @@ class App extends React.Component {
 
   render() {
     let clima = '';
-    if (this.state.clima) {
-      clima = <CardClima clima={this.state.clima} />
+    let climaSemana = ''
+    if (this.state.estado == this.estado.PRONTO) {
+      clima = <CardClima clima={this.state.clima} />;
+      climaSemana = <div className="climaSemana">
+      {this.state.climaDaSemana.map((item, idx)=> {
+        return this.renderMiniCardsClima(item, idx);
+      })}
+      </div>;
+    } else if (this.state.estado == this.estado.CARREGANDO) {
+      clima = <Load />
     }
     return (<div className="container">
     <Pesquisa
       lista={localidades}
       aoSelecionar={(item) => { this.aoSelecionar(item); } } />
     {clima}
-    <div className="climaSemana" >
-      {this.state.climaDaSemana.map((item, idx)=> {
-        return this.renderMiniCardsClima(item, idx);
-      })}
-      </div>
+    {climaSemana}
     </div>
 
     );

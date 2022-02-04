@@ -1,0 +1,35 @@
+@keyframes anim {
+  from {
+    color: black;
+  }
+
+  to {
+    color: white;
+  }
+}
+
+.pontoUm {
+  animation-name: anim;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+}
+
+.pontoDois {
+  animation-name: anim;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+}
+
+.pontoTres {
+  animation-name: anim;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+}
